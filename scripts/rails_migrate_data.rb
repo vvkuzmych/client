@@ -9,19 +9,19 @@
 # Requires environment variables:
 #   OLD_DB_HOST, OLD_DB_NAME, OLD_DB_USER, OLD_DB_PASSWORD
 
-require_relative '../config/environment'
+require_relative "../config/environment"
 
 class DataMigrator
   BATCH_SIZE = 1000
 
   def initialize
     @old_db_config = {
-      adapter: 'postgresql',
-      host: ENV['OLD_DB_HOST'] || 'localhost',
-      database: ENV['OLD_DB_NAME'],
-      username: ENV['OLD_DB_USER'] || 'postgres',
-      password: ENV['OLD_DB_PASSWORD'],
-      port: ENV['OLD_DB_PORT'] || 5432
+      adapter: "postgresql",
+      host: ENV["OLD_DB_HOST"] || "localhost",
+      database: ENV["OLD_DB_NAME"],
+      username: ENV["OLD_DB_USER"] || "postgres",
+      password: ENV["OLD_DB_PASSWORD"],
+      port: ENV["OLD_DB_PORT"] || 5432
     }
     
     connect_to_old_db
@@ -32,10 +32,10 @@ class DataMigrator
     
     # Define migration order (respect foreign key dependencies)
     tables = [
-      'users',
-      'products',
-      'orders',
-      'order_items',
+      "users",
+      "products",
+      "orders",
+      "order_items",
       # Add all tables in dependency order
     ]
     
@@ -83,7 +83,7 @@ class DataMigrator
           rescue ActiveRecord::RecordNotUnique
             # Skip duplicates
           rescue => e
-            puts "  Error migrating record #{old_record['id']}: #{e.message}"
+            puts "  Error migrating record #{old_record["id"]}: #{e.message}"
           end
         end
       end
@@ -99,21 +99,21 @@ class DataMigrator
     # Customize based on your schema differences
     
     case table_name
-    when 'users'
+    when "users"
       {
-        id: old_record['id'],
-        email: old_record['email'],
+        id: old_record["id"],
+        email: old_record["email"],
         # Add other mappings
-        created_at: old_record['created_at'],
-        updated_at: old_record['updated_at']
+        created_at: old_record["created_at"],
+        updated_at: old_record["updated_at"]
       }
-    when 'orders'
+    when "orders"
       {
-        id: old_record['id'],
-        user_id: old_record['user_id'],
+        id: old_record["id"],
+        user_id: old_record["user_id"],
         # Add other mappings
-        created_at: old_record['created_at'],
-        updated_at: old_record['updated_at']
+        created_at: old_record["created_at"],
+        updated_at: old_record["updated_at"]
       }
     else
       # Default: use all columns
@@ -129,7 +129,7 @@ class DataMigrator
       begin
         max_id = ActiveRecord::Base.connection.execute(
           "SELECT MAX(id) FROM #{table}"
-        ).first['max'].to_i
+        ).first["max"].to_i
         
         if max_id > 0
           ActiveRecord::Base.connection.execute(
@@ -146,7 +146,7 @@ end
 
 # Run migration
 if __FILE__ == $0
-  unless ENV['OLD_DB_NAME']
+  unless ENV["OLD_DB_NAME"]
     puts "Error: OLD_DB_NAME environment variable required"
     puts "Usage: OLD_DB_NAME=old_db ruby scripts/rails_migrate_data.rb"
     exit 1
