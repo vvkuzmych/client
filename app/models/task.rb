@@ -12,7 +12,7 @@ class Task
       a[word] += 1
     end
 
-    result = Hash.new { |h, k| h[k] = [ ] }
+    result = Hash.new { |h, k| h[k] = [] }
 
     a.each do |item, count|
       result[count] << item
