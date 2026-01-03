@@ -8,11 +8,11 @@ class Task
   def hash_complex(arr)
     arr
     a = Hash.new(0)
-    ["apple", "banana", "cherry", "vine", "date", "apple", "vine", "banana", "fig", "grape", "vine", "cherry"].each do |word|
+    [ "apple", "banana", "cherry", "vine", "date", "apple", "vine", "banana", "fig", "grape", "vine", "cherry" ].each do |word|
       a[word] += 1
     end
 
-    result = Hash.new { |h, k| h[k] = [] }
+    result = Hash.new { |h, k| h[k] = [ ] }
 
     a.each do |item, count|
       result[count] << item

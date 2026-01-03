@@ -55,7 +55,7 @@ group :development, :test do
   gem "pry"
   gem "pry-byebug"
   gem "pry-rails"
-  gem 'rspec-rails'
+  gem "rspec-rails"
 end
 
 group :development do
