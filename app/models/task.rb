@@ -1,6 +1,4 @@
-class  Task
-
-
+class Task
   def initialize(name, due_date)
     @name = name
     @due_date = due_date
@@ -21,9 +19,6 @@ class  Task
     end
   end
 
-
-    #   ["apple", "banana", "cherry", "vine", "date", "apple", "vine", "banana", "fig", "grape", "vine", "cherry"]
-    #   {2 => ["apple", "banana", "cherry"], 1 => ["date", "fig", "grape"], 3 => ["vine"]}
-
-
+  #   ["apple", "banana", "cherry", "vine", "date", "apple", "vine", "banana", "fig", "grape", "vine", "cherry"]
+  #   {2 => ["apple", "banana", "cherry"], 1 => ["date", "fig", "grape"], 3 => ["vine"]}
 end

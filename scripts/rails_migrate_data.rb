@@ -37,7 +37,6 @@ class DataMigrator
       "orders",
       "order_items"
     ]
-    # Add all tables in dependency order
 
     tables.each do |table|
       migrate_table(table)
