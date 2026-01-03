@@ -23,26 +23,26 @@ class DataMigrator
       password: ENV["OLD_DB_PASSWORD"],
       port: ENV["OLD_DB_PORT"] || 5432
     }
-    
+
     connect_to_old_db
   end
 
   def migrate_all
     puts "Starting data migration..."
-    
+
     # Define migration order (respect foreign key dependencies)
     tables = [
       "users",
       "products",
       "orders",
-      "order_items",
-      # Add all tables in dependency order
+      "order_items"
     ]
-    
+    # Add all tables in dependency order
+
     tables.each do |table|
       migrate_table(table)
     end
-    
+
     update_sequences
     puts "Migration completed!"
   end
@@ -56,21 +56,22 @@ class DataMigrator
 
   def migrate_table(table_name)
     puts "\nMigrating #{table_name}..."
-    
+
     # Get all records from old database
-    old_records = @old_connection.connection.execute("SELECT * FROM #{table_name}")
+    quoted_table = ActiveRecord::Base.connection.quote_table_name(table_name)
+    old_records = @old_connection.connection.execute("SELECT * FROM #{quoted_table}")
     total = old_records.count
     puts "  Found #{total} records"
-    
+
     return if total == 0
-    
+
     # Get model class
     model_class = table_name.classify.constantize rescue nil
     unless model_class
       puts "  Warning: Model #{table_name.classify} not found, skipping"
       return
     end
-    
+
     # Migrate in batches
     migrated = 0
     old_records.each_slice(BATCH_SIZE) do |batch|
@@ -90,14 +91,14 @@ class DataMigrator
       print "  Progress: #{migrated}/#{total}\r"
       $stdout.flush
     end
-    
+
     puts "\n  Migrated #{migrated} records"
   end
 
   def map_attributes(table_name, old_record)
     # Map old database columns to new model attributes
     # Customize based on your schema differences
-    
+
     case table_name
     when "users"
       {
@@ -123,17 +124,20 @@ class DataMigrator
 
   def update_sequences
     puts "\nUpdating sequences..."
-    
+
     # Reset primary key sequences for PostgreSQL
     ActiveRecord::Base.connection.tables.each do |table|
       begin
+        quoted_table = ActiveRecord::Base.connection.quote_table_name(table)
         max_id = ActiveRecord::Base.connection.execute(
-          "SELECT MAX(id) FROM #{table}"
+          "SELECT MAX(id) FROM #{quoted_table}"
         ).first["max"].to_i
-        
+
         if max_id > 0
+          sequence_name = "#{table}_id_seq"
+          quoted_sequence = ActiveRecord::Base.connection.quote(sequence_name)
           ActiveRecord::Base.connection.execute(
-            "SELECT setval('#{table}_id_seq', #{max_id}, true)"
+            "SELECT setval(#{quoted_sequence}, #{max_id}, true)"
           )
           puts "  Updated #{table}_id_seq to #{max_id}"
         end
@@ -151,13 +155,7 @@ if __FILE__ == $0
     puts "Usage: OLD_DB_NAME=old_db ruby scripts/rails_migrate_data.rb"
     exit 1
   end
-  
+
   migrator = DataMigrator.new
   migrator.migrate_all
 end
-
-
-
-
-
-

@@ -11,13 +11,13 @@ namespace :migrate_data do
   desc "Migrate all data from old database"
   task all: :environment do
     puts "Starting full data migration..."
-    
+
     Rake::Task["migrate_data:users"].invoke
     Rake::Task["migrate_data:products"].invoke
     Rake::Task["migrate_data:orders"].invoke
     Rake::Task["migrate_data:order_items"].invoke
     # Add other tables
-    
+
     Rake::Task["migrate_data:update_sequences"].invoke
     puts "Migration completed!"
   end
@@ -45,16 +45,19 @@ namespace :migrate_data do
   desc "Update primary key sequences"
   task update_sequences: :environment do
     puts "Updating sequences..."
-    
+
     ActiveRecord::Base.connection.tables.each do |table|
       begin
+        quoted_table = ActiveRecord::Base.connection.quote_table_name(table)
         max_id = ActiveRecord::Base.connection.execute(
-          "SELECT MAX(id) FROM #{table}"
+          "SELECT MAX(id) FROM #{quoted_table}"
         ).first["max"].to_i
-        
+
         if max_id > 0
+          sequence_name = "#{table}_id_seq"
+          quoted_sequence = ActiveRecord::Base.connection.quote(sequence_name)
           ActiveRecord::Base.connection.execute(
-            "SELECT setval('#{table}_id_seq', #{max_id}, true)"
+            "SELECT setval(#{quoted_sequence}, #{max_id}, true)"
           )
           puts "  Updated #{table}_id_seq to #{max_id}"
         end
@@ -82,15 +85,16 @@ namespace :migrate_data do
 
   def migrate_table(table_name, model_class)
     puts "\nMigrating #{table_name}..."
-    
+
     connect_to_old_db
-    
-    old_records = @old_connection.connection.execute("SELECT * FROM #{table_name}")
+
+    quoted_table = ActiveRecord::Base.connection.quote_table_name(table_name)
+    old_records = @old_connection.connection.execute("SELECT * FROM #{quoted_table}")
     total = old_records.count
     puts "  Found #{total} records"
-    
+
     return if total == 0
-    
+
     migrated = 0
     old_records.each do |old_record|
       begin
@@ -103,9 +107,9 @@ namespace :migrate_data do
         puts "  Error: #{e.message}"
       end
     end
-    
+
     puts "  Migrated #{migrated} records"
-    
+
     # Reconnect to Rails database
     ActiveRecord::Base.establish_connection(Rails.application.config.database_configuration[Rails.env])
   end
@@ -115,9 +119,3 @@ namespace :migrate_data do
     old_record.to_h.symbolize_keys
   end
 end
-
-
-
-
-
-
