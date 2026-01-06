@@ -9,6 +9,17 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
+  # GraphQL endpoint (requires CSRF token)
+  post "/graphql", to: "graphql#execute"
+  
+  # Get CSRF token for GraphQL clients
+  get "/graphql/csrf_token", to: "graphql#csrf_token"
+
+  # GraphiQL interactive GraphQL IDE (development only)
+  if Rails.env.development?
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  end
+
   # Defines the root path route ("/")
   # root "posts#index"
 end
