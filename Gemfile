@@ -59,6 +59,10 @@ group :development, :test do
   gem "pry-byebug"
   gem "pry-rails"
   gem "rspec-rails"
+
+  # Annotate models, routes, factories, and fixtures with schema information
+  # Using annotaterb (actively maintained, supports Ruby 3.4+ and Rails 8+)
+  gem "annotaterb"
 end
 
 group :development do

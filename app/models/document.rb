@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: documents
+#
+#  id         :bigint           not null, primary key
+#  content    :text
+#  status     :string           default("draft")
+#  title      :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  author_id  :integer
+#
+# Indexes
+#
+#  index_documents_on_author_id  (author_id)
+#  index_documents_on_status     (status)
+#
 class Document < ApplicationRecord
   # Validations
   validates :title, presence: true

@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id         :bigint           not null, primary key
+#  handle     :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_users_on_handle  (handle) UNIQUE
+#
 class User < ApplicationRecord
   # Validations
   validates :handle, presence: true, uniqueness: true
