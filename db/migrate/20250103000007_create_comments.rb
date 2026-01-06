@@ -8,8 +8,6 @@ class CreateComments < ActiveRecord::Migration[8.1]
       t.timestamps
     end
 
-    add_index :comments, :issue_id
-    add_index :comments, :user_id
     add_index :comments, :archived
 
     # Performance indexes as mentioned in the SQL

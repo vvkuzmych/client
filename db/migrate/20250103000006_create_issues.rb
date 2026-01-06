@@ -11,6 +11,5 @@ class CreateIssues < ActiveRecord::Migration[8.1]
     add_check_constraint :issues, "status IN ('open', 'closed')", name: "check_status"
     add_check_constraint :issues, "priority BETWEEN 1 AND 5", name: "check_priority"
     add_index :issues, :status
-    add_index :issues, :user_id
   end
 end
