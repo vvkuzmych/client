@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_01_03_000007) do
+ActiveRecord::Schema[8.1].define(version: 2025_01_06_000001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -19,12 +19,14 @@ ActiveRecord::Schema[8.1].define(version: 2025_01_03_000007) do
     t.text "body", null: false
     t.datetime "created_at", null: false
     t.bigint "issue_id", null: false
+    t.tsvector "search_vector"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["archived"], name: "index_comments_on_archived"
     t.index ["issue_id", "created_at", "id"], name: "ix_comments_issue_created"
     t.index ["issue_id", "user_id", "created_at", "id"], name: "ix_comments_issue_user_created"
     t.index ["issue_id"], name: "index_comments_on_issue_id"
+    t.index ["search_vector"], name: "index_comments_on_search_vector", using: :gin
     t.index ["user_id", "created_at", "id"], name: "ix_comments_user_created"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
