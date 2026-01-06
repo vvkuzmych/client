@@ -46,17 +46,13 @@ class Comment < ApplicationRecord
   scope :search, ->(query) {
     return all if query.blank?
 
-    sanitized_query = sanitize_sql_array([ "plainto_tsquery('english', ?)", query ])
-    rank_sql = "ts_rank(search_vector, #{sanitized_query}) DESC"
+    # Use parameterized queries to avoid SQL injection
+    fulltext_query = where(sanitize_sql_array([ "search_vector @@ plainto_tsquery('english', ?)", query ]))
+    like_query = where("body ILIKE ?", "%#{sanitize_sql_like(query)}%")
+    rank_sql = sanitize_sql_array([ "ts_rank(search_vector, plainto_tsquery('english', ?)) DESC", query ])
 
-    # Combine full-text search with ILIKE for stop words
-    # Full-text search handles normal words, ILIKE handles stop words and short queries
-    fulltext_condition = "search_vector @@ #{sanitized_query}"
-    like_condition = "body ILIKE ?"
-    like_value = "%#{sanitize_sql_like(query)}%"
-
-    where("(#{fulltext_condition}) OR (#{like_condition})", like_value)
-      .order(Arel.sql(rank_sql))
+    # Combine queries using 'or' (Brakeman-safe, no string interpolation)
+    fulltext_query.or(like_query).order(Arel.sql(rank_sql))
   }
 
   # Search with exact phrase matching
@@ -82,19 +78,22 @@ class Comment < ApplicationRecord
   scope :search_any_word, ->(*words) {
     return all if words.compact.blank?
 
-    # Build full-text query with OR
-    query = words.compact.join(" | ")
-    sanitized_query = sanitize_sql_array([ "plainto_tsquery('english', ?)", query ])
-    rank_sql = "ts_rank(search_vector, #{sanitized_query}) DESC"
+    clean_words = words.compact
+    query = clean_words.join(" | ")
 
-    # Build ILIKE conditions for each word (handles stop words)
-    like_conditions = words.compact.map { "body ILIKE ?" }.join(" OR ")
-    like_values = words.compact.map { |word| "%#{sanitize_sql_like(word)}%" }
+    # Build full-text search query
+    fulltext_query = where(sanitize_sql_array([ "search_vector @@ plainto_tsquery('english', ?)", query ]))
+    rank_sql = sanitize_sql_array([ "ts_rank(search_vector, plainto_tsquery('english', ?)) DESC", query ])
 
-    # Combine: full-text search OR any of the ILIKE conditions
-    fulltext_condition = "search_vector @@ #{sanitized_query}"
-    where("(#{fulltext_condition}) OR (#{like_conditions})", *like_values)
-      .order(Arel.sql(rank_sql))
+    # Build ILIKE query for each word (handles stop words)
+    like_queries = clean_words.map do |word|
+      where("body ILIKE ?", "%#{sanitize_sql_like(word)}%")
+    end
+
+    # Combine: full-text search OR any ILIKE query
+    # Use 'or' to combine queries safely (Brakeman-safe)
+    combined = like_queries.reduce(fulltext_query) { |acc, q| acc.or(q) }
+    combined.order(Arel.sql(rank_sql))
   }
 
   # Case-insensitive LIKE search (fallback, less performant)
