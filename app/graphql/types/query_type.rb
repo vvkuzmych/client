@@ -3,7 +3,7 @@ module Types
     description "The query root of this schema"
 
     # Get all documents
-    field :documents, [Types::DocumentType], null: false, description: "Returns all documents" do
+    field :documents, [ Types::DocumentType ], null: false, description: "Returns all documents" do
       argument :status, String, required: false, description: "Filter by status"
       argument :limit, Integer, required: false, description: "Limit the number of results", default_value: 10
     end
@@ -14,17 +14,17 @@ module Types
     end
 
     # Get document versions
-    field :document_versions, [Types::DocumentVersionType], null: false, description: "Returns versions for a document" do
+    field :document_versions, [ Types::DocumentVersionType ], null: false, description: "Returns versions for a document" do
       argument :document_id, ID, required: true, description: "The document ID"
     end
 
     # Get document comments
-    field :document_comments, [Types::DocumentCommentType], null: false, description: "Returns comments for a document" do
+    field :document_comments, [ Types::DocumentCommentType ], null: false, description: "Returns comments for a document" do
       argument :document_id, ID, required: true, description: "The document ID"
     end
 
     # Get document activities
-    field :document_activities, [Types::DocumentActivityType], null: false, description: "Returns activities for a document" do
+    field :document_activities, [ Types::DocumentActivityType ], null: false, description: "Returns activities for a document" do
       argument :document_id, ID, required: true, description: "The document ID"
       argument :activity_type, String, required: false, description: "Filter by activity type"
     end
@@ -54,4 +54,3 @@ module Types
     end
   end
 end
-

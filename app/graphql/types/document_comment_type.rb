@@ -8,8 +8,7 @@ module Types
     field :comment, String, null: false
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
-    
+
     field :document, Types::DocumentType, null: false
   end
 end
-

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   # GraphQL endpoint (requires CSRF token)
   post "/graphql", to: "graphql#execute"
-  
+
   # Get CSRF token for GraphQL clients
   get "/graphql/csrf_token", to: "graphql#csrf_token"
 

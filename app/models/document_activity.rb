@@ -1,8 +1,8 @@
 class DocumentActivity < ApplicationRecord
   # Validations
   validates :activity_type, presence: true
-  validates :activity_type, inclusion: { 
-    in: %w[created updated reviewed approved rejected commented archived] 
+  validates :activity_type, inclusion: {
+    in: %w[ created updated reviewed approved rejected commented archived ]
   }
 
   # Associations
@@ -12,4 +12,3 @@ class DocumentActivity < ApplicationRecord
   scope :recent, -> { order(created_at: :desc) }
   scope :by_type, ->(type) { where(activity_type: type) }
 end
-

@@ -41,4 +41,3 @@ class DocumentSchema < GraphQL::Schema
     type_name.constantize.find(id)
   end
 end
-

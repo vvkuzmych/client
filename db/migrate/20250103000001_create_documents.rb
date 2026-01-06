@@ -12,4 +12,3 @@ class CreateDocuments < ActiveRecord::Migration[8.1]
     add_index :documents, :author_id
   end
 end
-

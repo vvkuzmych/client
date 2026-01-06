@@ -1,7 +1,7 @@
 class Document < ApplicationRecord
   # Validations
   validates :title, presence: true
-  validates :status, inclusion: { in: %w[draft review approved rejected archived] }
+  validates :status, inclusion: { in: %w[ draft review approved rejected archived ] }
 
   # Associations
   has_many :document_versions, dependent: :destroy
@@ -21,4 +21,3 @@ class Document < ApplicationRecord
     document_versions.maximum(:version_number) || 0
   end
 end
-

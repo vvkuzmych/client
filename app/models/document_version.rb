@@ -9,4 +9,3 @@ class DocumentVersion < ApplicationRecord
   # Scopes
   scope :ordered, -> { order(version_number: :desc) }
 end
-

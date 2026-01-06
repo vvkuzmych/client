@@ -10,17 +10,17 @@ class GraphqlController < ApplicationController
   def execute
     # Parse JSON body if present, otherwise use params
     request_data = if request.content_type&.include?("application/json")
-                     body = request.body.read
-                     request.body.rewind
-                     body.present? ? JSON.parse(body) : {}
-                   else
-                     params.to_unsafe_h
-                   end
+      body = request.body.read
+      request.body.rewind
+      body.present? ? JSON.parse(body) : {}
+    else
+      params.to_unsafe_h
+    end
 
     variables = prepare_variables(request_data[:variables] || request_data["variables"])
     query = request_data[:query] || request_data["query"]
     operation_name = request_data[:operationName] || request_data["operationName"]
-    
+
     context = {
       # Query context goes here, for example:
       # current_user: current_user,
@@ -28,7 +28,7 @@ class GraphqlController < ApplicationController
     result = DocumentSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
   rescue JSON::ParserError => e
-    render json: { errors: [{ message: "Invalid JSON: #{e.message}" }] }, status: 400
+    render json: { errors: [ { message: "Invalid JSON: #{e.message}" } ] }, status: 400
   rescue StandardError => e
     raise e unless Rails.env.development?
     handle_error_in_development(e)
@@ -60,7 +60,6 @@ class GraphqlController < ApplicationController
     logger.error e.message
     logger.error e.backtrace.join("\n")
 
-    render json: { errors: [{ message: e.message, backtrace: e.backtrace }], data: {} }, status: 500
+    render json: { errors: [ { message: e.message, backtrace: e.backtrace } ], data: {} }, status: 500
   end
 end
-

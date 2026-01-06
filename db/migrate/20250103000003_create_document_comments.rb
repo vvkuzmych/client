@@ -10,4 +10,3 @@ class CreateDocumentComments < ActiveRecord::Migration[8.1]
     add_index :document_comments, :author_id
   end
 end
-

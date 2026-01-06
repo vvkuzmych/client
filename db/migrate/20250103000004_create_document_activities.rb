@@ -12,4 +12,3 @@ class CreateDocumentActivities < ActiveRecord::Migration[8.1]
     add_index :document_activities, :performed_by_id
   end
 end
-
