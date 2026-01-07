@@ -15,4 +15,3 @@ class SendCommentNotificationJob < ApplicationJob
     CommentMailer.comment_notification(comment).deliver_now
   end
 end
-

@@ -10,4 +10,3 @@ class SendWelcomeEmailJob < ApplicationJob
     UserMailer.welcome_email(user).deliver_now
   end
 end
-

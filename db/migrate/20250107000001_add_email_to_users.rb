@@ -22,4 +22,3 @@ class AddEmailToUsers < ActiveRecord::Migration[8.1]
     remove_column :users, :email
   end
 end
-

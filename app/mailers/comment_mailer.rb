@@ -11,4 +11,3 @@ class CommentMailer < ApplicationMailer
     mail(to: @issue_owner.email, subject: "New comment on: #{@issue.title}")
   end
 end
-
