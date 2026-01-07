@@ -102,4 +102,13 @@ class Comment < ApplicationRecord
 
     where("body ILIKE ?", "%#{sanitize_sql_like(term)}%")
   }
+
+  # Callbacks
+  after_create :send_comment_notification
+
+  private
+
+  def send_comment_notification
+    SendCommentNotificationJob.perform_later(id)
+  end
 end

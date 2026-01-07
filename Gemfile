@@ -71,6 +71,9 @@ group :development do
 
   # Interactive GraphQL IDE
   gem "graphiql-rails"
+
+  # Preview emails in browser instead of sending
+  gem "letter_opener"
 end
 
 group :test do

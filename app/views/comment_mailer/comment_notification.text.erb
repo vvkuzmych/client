@@ -1,0 +1,16 @@
+New Comment on Your Issue
+
+Hello <%= @issue_owner.handle %>,
+
+<%= @comment_author.handle %> has commented on your issue:
+
+<%= @issue.title %>
+
+Comment:
+<%= @comment.body %>
+
+View the issue and respond: <%= root_url %>?issue_id=<%= @issue.id %>
+
+Best regards,
+The Team
+

@@ -14,6 +14,8 @@
 class User < ApplicationRecord
   # Validations
   validates :handle, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: true
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: false
 
   # Associations
   has_many :issues, dependent: :destroy
@@ -21,4 +23,13 @@ class User < ApplicationRecord
 
   # Scopes
   scope :recent, -> { order(created_at: :desc) }
+
+  # Callbacks
+  after_create :send_welcome_email
+
+  private
+
+  def send_welcome_email
+    SendWelcomeEmailJob.perform_later(id)
+  end
 end

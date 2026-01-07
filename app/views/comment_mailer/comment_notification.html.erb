@@ -1,0 +1,19 @@
+<h1>New Comment on Your Issue</h1>
+
+<p>Hello <%= @issue_owner.handle %>,</p>
+
+<p><%= @comment_author.handle %> has commented on your issue:</p>
+
+<h2><%= @issue.title %></h2>
+
+<p><strong>Comment:</strong></p>
+<div style="background-color: #f5f5f5; padding: 15px; border-left: 4px solid #007bff; margin: 20px 0;">
+  <%= simple_format(@comment.body) %>
+</div>
+
+<p>
+  <%= link_to "View the issue and respond", root_url + "?issue_id=#{@issue.id}" %>
+</p>
+
+<p>Best regards,<br>The Team</p>
+
