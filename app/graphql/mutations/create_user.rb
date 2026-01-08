@@ -6,7 +6,7 @@ module Mutations
     argument :email, String, required: true, description: "User email"
 
     field :user, Types::UserType, null: true, description: "The created user"
-    field :errors, [String], null: false, description: "List of errors if creation failed"
+    field :errors, [ String ], null: false, description: "List of errors if creation failed"
 
     def resolve(handle:, email:)
       user = UserService.create(handle: handle, email: email)
@@ -22,7 +22,7 @@ module Mutations
     rescue StandardError => e
       {
         user: nil,
-        errors: [e.message]
+        errors: [ e.message ]
       }
     end
   end

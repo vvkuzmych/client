@@ -1,7 +1,7 @@
-def init_array()
+def init_array
   # create and return array with 10 elements ( integer ) in it
   # DO NOT EDIT THIS FUNCTION
-  x = [9, 7, 6, 5, 4, 6, 7, 1, 2, 3]
+  x = [ 9, 7, 6, 5, 4, 6, 7, 1, 2, 3 ]
   x
 end
 
@@ -41,7 +41,7 @@ else
   puts "Correct! Elements of the Array variable are 10 in number!"
 end
 
-unless arr.all? {|element| element.is_a? Integer}
+unless arr.all? { |element| element.is_a? Integer }
   puts "All the elements of the Array initialized has to be integers"
   exit(0)
 else
@@ -99,9 +99,9 @@ else
 end
 
 
-def init_array()
+def init_array
   # create and return array with 10 elements ( integer ) in it
-  x = [9, 7, 6, 5, 4, 6, 7, 1, 2, 3]
+  x = [ 9, 7, 6, 5, 4, 6, 7, 1, 2, 3 ]
   x
 end
 
@@ -148,7 +148,7 @@ else
   puts "Correct! Elements of the Array variable are 10 in number!"
 end
 
-unless arr.all? {|element| element.is_a? Integer}
+unless arr.all? { |element| element.is_a? Integer }
   puts "All the elements of the Array initialized has to be integers"
   exit(0)
 else
@@ -295,7 +295,7 @@ def delete_all(arr, val)
 end
 
 
-arr = [5, 4, 3, 2, "hello"]
+arr = [ 5, 4, 3, 2, "hello" ]
 
 val = end_arr_delete(arr)
 
@@ -311,7 +311,7 @@ else
   puts "Correct! You have deleted the last element from the array"
 end
 
-arr = [5, 4, 3, 2]
+arr = [ 5, 4, 3, 2 ]
 
 val = start_arr_delete(arr)
 
@@ -327,7 +327,7 @@ else
   puts "Correct! You have deleted the first element from the array"
 end
 
-arr = [3, 4, 5, 6, 1]
+arr = [ 3, 4, 5, 6, 1 ]
 
 val = delete_at_arr(arr, 3)
 
@@ -343,7 +343,7 @@ else
   puts "Correct! You have deleted the element at index #{3} from the array"
 end
 
-arr = [1, 2, 3, 4, 2, 2, 5]
+arr = [ 1, 2, 3, 4, 2, 2, 5 ]
 
 val = delete_all(arr, 2)
 
@@ -376,15 +376,15 @@ end
 
 def keep_arr(arr)
   # keep all non negative elements ( >= 0)
-  arr.keep_if { |i| i >= 0}
+  arr.keep_if { |i| i >= 0 }
 end
 
 
-arr = [3, 4, 2, 1, 2, 3, 4, 5, 6]
+arr = [ 3, 4, 2, 1, 2, 3, 4, 5, 6 ]
 
 odd_elements = select_arr(arr)
 
-unless odd_elements == arr.select {|a| a % 2 == 1}
+unless odd_elements == arr.select { |a| a % 2 == 1 }
   val = "nil" if val.nil?
   puts "You have to return only odd valued elements from the array."
   exit(0)
@@ -394,7 +394,7 @@ end
 
 reject_div_3 = reject_arr(arr)
 
-unless reject_div_3 == arr.reject {|a| a % 3 == 0}
+unless reject_div_3 == arr.reject { |a| a % 3 == 0 }
   val = "nil" if val.nil?
   puts "You have to return all numbers that are not divisible by 3"
   exit(0)
@@ -404,7 +404,7 @@ end
 
 delete_neg = delete_arr(arr)
 
-unless delete_neg == arr.delete_if {|a| a < 0}
+unless delete_neg == arr.delete_if { |a| a < 0 }
   val = "nil" if val.nil?
   puts "You have to delete all the negative elements of the array"
   exit(0)
@@ -414,7 +414,7 @@ end
 
 keep_pos = keep_arr(arr)
 
-unless keep_pos == arr.keep_if {|a| a > 0}
+unless keep_pos == arr.keep_if { |a| a > 0 }
   val = "nil" if val.nil?
   puts "You have to retain all the positive elements of the array"
   exit(0)
@@ -727,7 +727,7 @@ end
 
 
 def rotate13(s)
-  s.tr('A-Za-z', 'N-ZA-Mn-za-m')
+  s.tr("A-Za-z", "N-ZA-Mn-za-m")
 end
 
 def _rot13(secret_messages)
@@ -736,24 +736,24 @@ def _rot13(secret_messages)
   end
 end
 
-msg = ['qrygn', 'zrrg ng pubpbyngr pbeare', 'gra zra', 'gjb onpxhc grnzf',
-       'zvqavtug rkgenpgvba']
+msg = [ "qrygn", "zrrg ng pubpbyngr pbeare", "gra zra", "gjb onpxhc grnzf",
+        "zvqavtug rkgenpgvba" ]
 
 a1 = _rot13(msg)
 t1 = rot13(msg)
 
 unless t1.is_a? Array
-  puts 'Your method must return an Array object.'
+  puts "Your method must return an Array object."
   exit(0)
 end
 
 unless t1.first.is_a? String
-  puts 'The returned object must contain only strings.'
+  puts "The returned object must contain only strings."
   exit(0)
 end
 
 unless a1.length == t1.length
-  puts 'Oops! Are you sure you have decoded all the messages?'
+  puts "Oops! Are you sure you have decoded all the messages?"
   exit(0)
 end
 
@@ -762,7 +762,7 @@ unless t1 == a1
   exit(0)
 end
 
-puts 'Yay! You succesfully completeted the map challenge.'
+puts "Yay! You succesfully completeted the map challenge."
 
 ""
 
@@ -790,17 +790,17 @@ t1 = sum_terms(num)
 t1 = sum_terms(num)
 a1 = _sum_terms(num)
 
-unless (t1.is_a? Fixnum or t1.is_a? Bignum)
-  puts 'Your method must return an Integer (Fixnum, Bignum).'
+unless t1.is_a? Fixnum or t1.is_a? Bignum
+  puts "Your method must return an Integer (Fixnum, Bignum)."
   exit(0)
 end
 
 unless t1 == a1
-  puts 'Ooops! Seems like you have done some mistake. Try again!'
+  puts "Ooops! Seems like you have done some mistake. Try again!"
   exit(0)
 end
 
-puts 'Kudos! Your have succesfully completed the challenge on reduce.'
+puts "Kudos! Your have succesfully completed the challenge on reduce."
 
 
 def func_any(hash)
@@ -826,15 +826,14 @@ def func_find(hash)
   #   1. There is a [key, value] pair where the key and value are both Integers and the value is < 20
   #   2. There is a [key, value] pair where the key and value are both Strings and the value starts with `a`.
   hash.find do |key, value|
-    [key, value].any? { |i| i.is_a?(Integer) && i < 20} || ([key, value].any? { |i| i.is_a?(String) && value.start_with?("a")})
+    [ key, value ].any? { |i| i.is_a?(Integer) && i < 20 } || ([ key, value ].any? { |i| i.is_a?(String) && value.start_with?("a") })
   end
-
 end
 
-####1. any? check for integer key in hash (true)
-h = {"a" => "a", "b" => "b", "c" => 1, 1 => 2}
+# ####1. any? check for integer key in hash (true)
+h = { "a" => "a", "b" => "b", "c" => 1, 1 => 2 }
 ans = func_any(h)
-cor = h.any? {|key, value| key.is_a? Integer}
+cor = h.any? { |key, value| key.is_a? Integer }
 
 unless ans == cor
   puts "func_any: Wrong. There is a [key, value] pair in the Hash where the key is an Integer."
@@ -842,10 +841,10 @@ else
   puts "func_any: Correct! There is a [key, value] pair in the Hash where the key is an Integer."
 end
 
-####2. any? check for integer key in hash (false)
-h = {"a" => "a", "b" => "b", "c" => 1}
+# ####2. any? check for integer key in hash (false)
+h = { "a" => "a", "b" => "b", "c" => 1 }
 ans = func_any(h)
-cor = h.any? {|key, value| key.is_a? Integer}
+cor = h.any? { |key, value| key.is_a? Integer }
 
 unless ans == cor
   puts "func_any: Wrong. There is no [key, value] pair in the Hash where the key is an Integer."
@@ -853,9 +852,9 @@ else
   puts "func_any: Correct! There is no [key, value] pair in the Hash where the key is an Integer."
 end
 
-####3. all? check for integer value under 10 (true)
-h = {"a" => 1, "c" => 2, "d" => 3, "e" => 9}
-cor = h.all? {|key, value| (value.is_a? Integer and value < 10) }
+# ####3. all? check for integer value under 10 (true)
+h = { "a" => 1, "c" => 2, "d" => 3, "e" => 9 }
+cor = h.all? { |key, value| (value.is_a? Integer and value < 10) }
 ans = func_all(h)
 unless ans == cor
   puts "func_all: Wrong. All [key, value] pairs in the Hash have a value that is an Integers < 10."
@@ -863,9 +862,9 @@ else
   puts "func_all: Correct! All [key, value] pairs in the Hash have a value that is an Integer < 10."
 end
 
-####4. all? check for integer value under 10 (false)
-h = {"a" => 10, "c" => 20, "d" => 30, "e" => 1}
-cor = h.all? {|key, value| (value.is_a? Integer and value < 10) }
+# ####4. all? check for integer value under 10 (false)
+h = { "a" => 10, "c" => 20, "d" => 30, "e" => 1 }
+cor = h.all? { |key, value| (value.is_a? Integer and value < 10) }
 ans = func_all(h)
 unless ans == cor
   puts "func_all: Wrong. Not all [key, value] pairs in the Hash have a value that's an Integer < 10."
@@ -874,9 +873,9 @@ else
 end
 
 
-####5. none? check for no nil value (true)
-h = {"a" => 1, "b" => 2, "c" => 3, "d" => 1}
-cor = h.none? {|key, value| value.nil?}
+# ####5. none? check for no nil value (true)
+h = { "a" => 1, "b" => 2, "c" => 3, "d" => 1 }
+cor = h.none? { |key, value| value.nil? }
 
 ans = func_none(h)
 
@@ -886,9 +885,9 @@ else
   puts "func_none: Correct! There is no [key, value] pair in the Hash where the value is nil."
 end
 
-####6. none? check for no nil value (true)
-h = {"a" => 1, "b" => 2, "c" => 3, "d" => nil}
-cor = h.none? {|key, value| value.nil?}
+# ####6. none? check for no nil value (true)
+h = { "a" => 1, "b" => 2, "c" => 3, "d" => nil }
+cor = h.none? { |key, value| value.nil? }
 
 ans = func_none(h)
 
@@ -899,10 +898,10 @@ else
 end
 
 
-####7. func_find first condition check
+# ####7. func_find first condition check
 
-h = {"a" => "b", "b" => "c", 1 => 2}
-cor = h.find {|key, value| (key.is_a? Integer and value.is_a? Integer and value < 20) or (key.is_a? String and value.is_a? String and value.start_with? "a")}
+h = { "a" => "b", "b" => "c", 1 => 2 }
+cor = h.find { |key, value| (key.is_a? Integer and value.is_a? Integer and value < 20) or (key.is_a? String and value.is_a? String and value.start_with? "a") }
 
 ans = func_find(h)
 # cor = [1, 2]
@@ -913,10 +912,10 @@ else
   puts "func_find: Correct! There is a [key, value] pair in the Hash that satisfies one of the properties."
 end
 
-####7. func_find first condition check 2 (fail)
+# ####7. func_find first condition check 2 (fail)
 
-h = {2 => 40, 3 => 60, 1 => 20}
-cor = h.find {|key, value| (key.is_a? Integer and value.is_a? Integer and value < 20) or (key.is_a? String and value.is_a? String and value.start_with? "a")}
+h = { 2 => 40, 3 => 60, 1 => 20 }
+cor = h.find { |key, value| (key.is_a? Integer and value.is_a? Integer and value < 20) or (key.is_a? String and value.is_a? String and value.start_with? "a") }
 
 ans = func_find(h)
 # cor = [1, 2]
@@ -927,10 +926,10 @@ else
   puts "func_find: Correct! There is no [key, value] pair in the Hash that satisfies one of the properties."
 end
 
-####8. func_find second condition check
+# ####8. func_find second condition check
 
-h = {"a" => 22, "b" => 21, "c" => "abc"}
-cor = h.find {|key, value| (key.is_a? Integer and value.is_a? Integer and value < 20) or (key.is_a? String and value.is_a? String and value.start_with? "a")}
+h = { "a" => 22, "b" => 21, "c" => "abc" }
+cor = h.find { |key, value| (key.is_a? Integer and value.is_a? Integer and value < 20) or (key.is_a? String and value.is_a? String and value.start_with? "a") }
 
 ans = func_find(h)
 # cor = ["c", "abc"]
@@ -941,10 +940,10 @@ else
   puts "func_find: Correct! There is a [key, value] pair in the Hash that satisfies one of the properties."
 end
 
-####9. func_find none satisfy
+# ####9. func_find none satisfy
 
-h = {"a" => "b", "b" => "c", "c" => "d", 1 => "a"}
-cor = h.find {|key, value| (key.is_a? Integer and value.is_a? Integer and value < 20) or (key.is_a? String and value.is_a? String and value.start_with? "a")}
+h = { "a" => "b", "b" => "c", "c" => "d", 1 => "a" }
+cor = h.find { |key, value| (key.is_a? Integer and value.is_a? Integer and value < 20) or (key.is_a? String and value.is_a? String and value.start_with? "a") }
 
 ans = func_find(h)
 # cor = nil
@@ -965,29 +964,29 @@ end
 def _group_by_marks(marks, n)
   marks.group_by do |key, value|
     if value < n
-      'Failed'
+      "Failed"
     else
-      'Passed'
+      "Passed"
     end
   end
 end
 
-marks = {"Ramesh" => 23, "Vivek" => 40, "Harsh" => 88, "Mohammad" => 60}
+marks = { "Ramesh" => 23, "Vivek" => 40, "Harsh" => 88, "Mohammad" => 60 }
 
 n = gets.to_i
 t1 = group_by_marks(marks, n)
 a1 = _group_by_marks(marks, n)
 
 unless t1.is_a? Hash
-  puts 'Watch out! Your method must return a Hash.'
+  puts "Watch out! Your method must return a Hash."
 end
 
 unless t1 == a1
-  puts 'Ooops! Seems like you missed something in output.'
+  puts "Ooops! Seems like you missed something in output."
   exit(0)
 end
 
-puts 'Cool! You have completed the group_by challenge!'
+puts "Cool! You have completed the group_by challenge!"
 
 
 def take(array, n)
@@ -996,23 +995,22 @@ end
 
 
 unless Object.respond_to?(:take, true)
-  puts 'You must define the method first!'
+  puts "You must define the method first!"
   exit(0)
 end
 
-a1 = take([-4, 5, 9, 0], 4) == []
-a2 = take(['a', 'b', 56, /d+/], 1) == ['b', 56, /d+/]
-a3 = take([121, 35, 523, 898], 0) == [121, 35, 523, 898]
+a1 = take([ -4, 5, 9, 0 ], 4) == []
+a2 = take([ "a", "b", 56, /d+/ ], 1) == [ "b", 56, /d+/ ]
+a3 = take([ 121, 35, 523, 898 ], 0) == [ 121, 35, 523, 898 ]
 
-unless [a1, a2, a3].all?
-  puts 'So close! Please recheck your output!'
+unless [ a1, a2, a3 ].all?
+  puts "So close! Please recheck your output!"
   exit(0)
 end
 
-puts 'Yay! You have successfully completed your challenge!'
+puts "Yay! You have successfully completed your challenge!"
 
 
 def full_name(*names)
   names.join(" ")
 end
-

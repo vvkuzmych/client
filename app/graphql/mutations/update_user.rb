@@ -7,7 +7,7 @@ module Mutations
     argument :email, String, required: false, description: "New user email"
 
     field :user, Types::UserType, null: true, description: "The updated user"
-    field :errors, [String], null: false, description: "List of errors if update failed"
+    field :errors, [ String ], null: false, description: "List of errors if update failed"
 
     def resolve(id:, handle: nil, email: nil)
       user = UserService.update(id: id, handle: handle, email: email)
@@ -19,7 +19,7 @@ module Mutations
       else
         {
           user: nil,
-          errors: ["User not found"]
+          errors: [ "User not found" ]
         }
       end
     rescue ActiveRecord::RecordInvalid => e
@@ -30,7 +30,7 @@ module Mutations
     rescue StandardError => e
       {
         user: nil,
-        errors: [e.message]
+        errors: [ e.message ]
       }
     end
   end

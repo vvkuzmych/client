@@ -5,7 +5,7 @@ module Mutations
     argument :id, ID, required: true, description: "The user ID"
 
     field :success, Boolean, null: false, description: "Whether the deletion was successful"
-    field :errors, [String], null: false, description: "List of errors if deletion failed"
+    field :errors, [ String ], null: false, description: "List of errors if deletion failed"
 
     def resolve(id:)
       success = UserService.delete(id)
@@ -17,13 +17,13 @@ module Mutations
       else
         {
           success: false,
-          errors: ["User not found"]
+          errors: [ "User not found" ]
         }
       end
     rescue StandardError => e
       {
         success: false,
-        errors: [e.message]
+        errors: [ e.message ]
       }
     end
   end
