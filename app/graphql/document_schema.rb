@@ -1,5 +1,6 @@
 class DocumentSchema < GraphQL::Schema
   query Types::QueryType
+  mutation Types::MutationType
 
   # For batch-loading (see https://graphql-ruby.org/dataloader/overview.html)
   use GraphQL::Dataloader

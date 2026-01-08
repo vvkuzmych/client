@@ -29,6 +29,17 @@ module Types
       argument :activity_type, String, required: false, description: "Filter by activity type"
     end
 
+    # Get all users
+    field :users, [ Types::UserType ], null: false, description: "Returns all users" do
+      argument :limit, Integer, required: false, description: "Limit the number of results"
+      argument :offset, Integer, required: false, description: "Number of users to skip", default_value: 0
+    end
+
+    # Get a single user by ID
+    field :user, Types::UserType, null: true, description: "Returns a single user" do
+      argument :id, ID, required: true, description: "The user ID"
+    end
+
     def documents(status: nil, limit: 10)
       query = Document.all
       query = query.where(status: status) if status.present?
@@ -51,6 +62,14 @@ module Types
       query = DocumentActivity.where(document_id: document_id)
       query = query.where(activity_type: activity_type) if activity_type.present?
       query.order(created_at: :desc)
+    end
+
+    def users(limit: nil, offset: 0)
+      UserService.all(limit: limit, offset: offset)
+    end
+
+    def user(id:)
+      UserService.find(id)
     end
   end
 end
